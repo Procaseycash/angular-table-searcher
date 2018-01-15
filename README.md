@@ -1,28 +1,7 @@
-# LarangPaginator (Angular ^4...)
+# AngularTableSearcher (Angular ^4...)
 
-This is a Laravel Angular Paginator for tables. For other backend language to use this library. Please make sure your success response conforms with this response: 
-  
-      
-    {
-       "total": 50,
-       "per_page": 15,
-       "current_page": 1,
-       "last_page": 4,
-       "next_page_url": "http://laravel.app?page=2",
-       "prev_page_url": null,
-       "path": "http://laravel.app",
-       "from": 1,
-       "to": 15,
-       "data":[
-            {
-                // Result Object
-            },
-            {
-                // Result Object
-            }
-       ]
-    }
-    
+This is an angular table searcher. it helps to use keys provided to search through a list of objects and if no keys are provided, it searches for the occurrence of the input value. it also makes request to endpoint if url is provided for backend search.     
+
  ## Release Note
  Due to compatibility issues in Angular 4 & 5, we will maintain all:
  ````
