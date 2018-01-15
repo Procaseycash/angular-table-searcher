@@ -56,9 +56,9 @@
     "url": "git+https://github.com/Procaseycash/@angular-table-searcher.git"
   },
   "keywords": [
-    "Laravel",
+    "Table",
     "Angular",
-    "Paginator"
+    "Searcher"
   ],
   "author": "Kazeem Olanipekun <kezyolanipekun@gmail.com>",
   "contributors": [
