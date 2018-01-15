@@ -1,0 +1,23 @@
+
+.formSearch {
+  position: relative;
+}
+.formSearch  select, .formSearch  input, .formSearch  button {
+  border-radius: 0!important;
+}
+/*.formSearch button {
+  border-radius: 0!important;
+}*/
+.formSearch select, .formSearch .input-group-addon, .formSearch .input-group input  {
+  height: 33px!important;
+}
+
+.formSearch .col-lg-1,.formSearch .col-lg-2,.formSearch .col-lg-4,
+.formSearch .col-lg-5,.formSearch .col-lg-3,
+.formSearch .col-lg-7, .formSearch .col-lg-9, .formSearch .col-lg-6, .formSearch .col-lg-8{
+  padding:0!important;
+}
+
+.formSearch .input-group button {
+  height: 33px!important;
+}
