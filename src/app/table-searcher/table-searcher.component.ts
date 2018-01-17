@@ -9,6 +9,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/switch';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/throw';
+import 'rxjs/add/operator/map';
 import {TableSearcherInterface} from "./table-searcher.interface";
 
 @Component({
