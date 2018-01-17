@@ -9,6 +9,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/switch';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/throw';
+import {TableSearcherInterface} from "./table-searcher.interface";
 
 @Component({
   selector: 'app-table-searcher',
@@ -17,7 +18,7 @@ import 'rxjs/add/observable/throw';
 })
 export class TableSearcherComponent implements OnInit {
 
-  private static defaultAllSettings: AllSettings<Object> = {
+  private static defaultAllSettings: TableSearcherInterface<Object> = {
     path: null,
     placeholder: 'What are you looking for?',
     data: [],
@@ -29,7 +30,7 @@ export class TableSearcherComponent implements OnInit {
     searchType: TableSearcherTypesEnum.EMPTY_TABLE_APPLY_BACKEND
   };
 
-  @Input() allSettings: AllSettings<Object> = {
+  @Input() allSettings: TableSearcherInterface<Object> = {
     path: null,
     placeholder: 'What are you looking for?',
     data: [],
@@ -157,15 +158,5 @@ export class TableSearcherComponent implements OnInit {
 
 }
 
-interface AllSettings<T> {
-  path: string;
-  placeholder: string;
-  data: Array<Object>;
-  searchKeys: Array<string>;
-  from: string;
-  borderColor: string;
-  buttonColor: string;
-  queryField: string;
-  searchType: TableSearcherTypesEnum;
-}
+
 
