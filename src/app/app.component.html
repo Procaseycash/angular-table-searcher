@@ -19,10 +19,7 @@
   </li>
 </ul>-->
 <div style="width: 30%; margin: 10px auto;" *ngIf="tableSearcher.data">
-  <app-table-searcher [data]="tableSearcher.data" [from]="tableSearcher.from" [path]="tableSearcher.path"
-                      [placeholder]="tableSearcher.placeholder" [searchKeys]="tableSearcher.searchKeys"
-                      [searchType]="tableSearcher.searchType" [borderColor]="'red'"
-                      [buttonColor]="'black'"></app-table-searcher>
+  <app-table-searcher [allSettings]="tableSearcher"></app-table-searcher>
   <table width="100%" class="table table-striped table-responsive">
     <tr>
       <td>#</td>

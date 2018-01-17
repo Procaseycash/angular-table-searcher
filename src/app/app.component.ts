@@ -14,8 +14,8 @@ export class AppComponent implements OnInit {
     path: 'http://localhost:8088/api/organizations',
     searchType: TableSearcherTypesEnum.ON_TABLE,
     searchKeys: [],
-    borderColor: 'red',
-    buttonColor: 'black',
+    borderColor: '',
+    buttonColor: '',
     data: null,
     placeholder: 'Filter information...',
     from: 'search_organizations'

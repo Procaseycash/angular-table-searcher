@@ -1,5 +1,5 @@
 <div class="table-searcher" [ngStyle]="setBorderColor()" [class.disabled]="searching">
-  <input [disabled]="searching" (keyup.enter)="doSearch(searchItem.value)" #searchItem  type="text"  placeholder="{{placeholder}}">
+  <input [disabled]="searching" (keyup.enter)="doSearch(searchItem.value)" #searchItem  type="text"  placeholder="{{allSettings.placeholder}}">
   <!--<i *ngIf="searching" class="fa fa-spin fa-spinner"></i>-->
   <button  [disabled]="searching" type="button" (click)="doSearch(searchItem.value)" class="button" [ngStyle]="setButtonColor()">
     <i *ngIf="searching" class="fa fa-spin fa-spinner"></i> <i class="fa fa-search"></i>

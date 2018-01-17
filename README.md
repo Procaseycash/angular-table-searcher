@@ -8,13 +8,7 @@ This is an angular table searcher. it helps to use keys provided to search throu
  Angular 4 from 4.0.0 and above.
  Angular 5 from 5.0.0 and above.
  ````
- 
- ## Sample Usage 
- 
- You can download sample usage of this library for angular 4 & 5 from release note through this url
-  
- `https://github.com/Procaseycash/use-larang-paginator`
- 
+
  ## Dependencies
  
  `npm install font-awesome --save`
@@ -23,31 +17,31 @@ This is an angular table searcher. it helps to use keys provided to search throu
  
  ## Installation
  
- `npm install --save larang-paginator`
+ `npm install --save angular-table-searcher`
 
    
 ## Usage in Application
 
-Follow the instruction below to use LarangPaginator.
+Follow the instruction below to use angular-table-searcher.
 
-`import {LarangPaginatorModule} from 'larang-paginator';`
+`import {AngularTableSearcherModule} from 'angular-table-searcher';`
 
-Add `LarangPaginatorModule.forRoot()` in AppModule or Other Modules using `LarangPaginatorModule`
+Add `AngularTableSearcherModule.forRoot()` in AppModule or Other Modules using `AngularTableSearcherModule`
      
    # Notice: 
   ```` 
-  path: full path of the api url to call for data.
-  from: the key the eventService will use in mapping when data has responded from paginator. (from key must be unique to every component using pagination)
-  data: (paginated response), this must be the first data rendered from the component which information are picked to generate the pagination.
-  limit: paginated data per page, default is 50.
-  perNav: navigation bar to show at a time: defualt is 5.
-  viewPage: string value to hold the Integer value for the next page. default is 'page'
-  paginate: string value to hold the Integer value for limit in a view page. defualt is 'paginate'.
-  
-  Note that the query string in (next_page_url & prev_page_url) must be thesame to what is passed down in viewPage & paginate for paginator to work with.
+  path: full path of the api url to call for search option.
+  from: the key the eventService will use in mapping when data has responded from angular-table-seacher. (from key must be unique to every component using searcher)
+  data: (paginated response), this must be the first data rendered from the component which information are picked to enable searching.
+  searchKeys: Keys to tell the AngularTableSearcher to use to filter data.
+  searchType: We have three search types which can be from backend, table, table not found with backend.
+  placeholder: What to display in the input field as a message
+  buttonColor: The background color of the table seacher.
+  borderColor: The border-bottom color of the table seacher.
+  queryField: The field name to pass search value into. such as search will be search='value entered'
   ````
   
-  A sample larangPaginator built url for paginating will be `http://localhost:8088/api/organizations?page=1&paginate=5`
+  A sample AngularTableSearcher built url for searching will be `http://localhost:8088/api/organizations?search=olanipekun'`
   
   
    ## *.component.ts
@@ -56,52 +50,57 @@ Add `LarangPaginatorModule.forRoot()` in AppModule or Other Modules using `Laran
 
   
 ````
- import {AfterViewInit, Component, OnInit} from '@angular/core';
- import {EventsService} from "larang-paginator";
- import {Http} from "@angular/http";
- import 'rxjs/add/operator/map';
- @Component({
-   selector: 'app-root',
-   templateUrl: './app.component.html',
-   styleUrls: ['./app.component.css']
- })
- export class AppComponent implements OnInit, AfterViewInit {
-   title = 'app';
-   public paginator = {
-     path: 'http://localhost:8088/api/organizations',
-     limit: 5,
-     perNav: 5,
-     data: null,
-     from: 'list_organizations'
- 
-   };
- 
-   constructor(private eventsService: EventsService, private http: Http) {
-     this.eventsService.on(this.paginator.from, (res) => {
-       // pass response to the property rendering the data in view
- 
-       this.paginator.data = res.data; // update paginated data in view
-     });
-   }
-   private getOrganizations() {
-     this.http.get(this.paginator.path + `?page=1&paginate=${this.paginator.limit}`)
-       .map(res => res.json()).subscribe(
-       (res) => {
-         this.paginator.data = res.data;
-         console.log('Response=', res);
-       },
-       (err) => {
- 
-       }
-     );
-   }
- 
-   ngOnInit() {
-     this.getOrganizations();
-   }
-   ngAfterViewInit() {
-   }
- }
+import {Component, OnInit} from '@angular/core';
+import {Http} from "@angular/http";
+import 'rxjs/add/operator/map';
+import {EventsService, TableSearcherTypesEnum} from "angular-table-searcher";
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent implements OnInit {
+  title = 'app';
+  public tableSearcher = {
+    path: 'http://localhost:8088/api/organizations',
+    searchType: TableSearcherTypesEnum.ON_TABLE,
+    searchKeys: [],
+    borderColor: '',
+    buttonColor: '',
+    data: null,
+    placeholder: 'Filter information...',
+    queryField: 'search',
+    from: 'search_organizations'
+  };
+
+  constructor(private eventsService: EventsService, private http: Http) {
+    this.eventsService.on(this.tableSearcher.from, (res) => {
+      // Note that table will response from table searcher will respond with result and data,
+      // the result is the searched item while data is the previous data passed down to it.
+      // the result can be of array or object.
+      // if result is an array, that is the final result
+      // but if result is object, it denotes a backend response, so you can drill down to pick the searched result depending on your api response.
+      console.log('response=', res);
+      this.tableSearcher.data = (res['result'].constructor === Array) ? res['result'] : res['result'].data['data']; // update table data in view
+    });
+  }
+  private getOrganizations() {
+    this.http.get(this.tableSearcher.path)
+      .map( res => res.json()).subscribe(
+      (res) => {
+        this.tableSearcher.data = res['data']['data'];
+      },
+      (err) => {
+
+      }
+    );
+  }
+
+  ngOnInit() {
+    this.getOrganizations();
+  }
+}
+
 
       
   ````
@@ -110,31 +109,23 @@ Add `LarangPaginatorModule.forRoot()` in AppModule or Other Modules using `Laran
   Add this below the table you want it to paginate data from backend.
   
   ````
- <div *ngIf="paginator.data" class="col-sm-6 col-sm-auto">
-   <table width="100%" class="table table-striped table-responsive">
-     <tr>
-       <td>#</td>
-       <td>Name</td>
-       <td>Email</td>
-     </tr>
- 
-     <tr *ngFor="let page of paginator.data['data']; let i = index;">
-       <td>{{((paginator.data['current_page'] - 1) * paginator.limit + i + 1) || (i + 1)}}</td>
-       <td>{{page?.name}}</td>
-       <td>{{page?.email}}</td>
-     </tr>
- 
-   </table>
-   
-   <!-- You can add viewPage & paginate name. the default sample will be page=1&paginate=40
-        you can inject [viewPage]="'perPage'", [paginate]="'limit'" and u get a sample of perPage=1&limit=40 
-        
-        -->
-   
-   <app-paginator [from]="paginator.from" [data]="paginator.data" [path]="paginator.path"
-                  [limit]="paginator.limit" [perNav]="paginator.perNav"></app-paginator>
- 
- </div>
+<div style="width: 30%; margin: 10px auto;" *ngIf="tableSearcher.data">
+  <app-table-searcher [allSettings]="tableSearcher"></app-table-searcher>
+  <table width="100%" class="table table-striped table-responsive">
+    <tr>
+      <td>#</td>
+      <td>Name</td>
+    </tr>
+
+    <tr *ngFor="let page of tableSearcher.data; let i = index;">
+      <td>{{(i + 1)}}</td>
+      <td>{{page?.name}}</td>
+    </tr>
+
+  </table>
+
+
+</div>
 ````
 
 ## Backend expected request
@@ -142,8 +133,7 @@ Add `LarangPaginatorModule.forRoot()` in AppModule or Other Modules using `Laran
 Your backend will expect 
 
 ````
-viewPage: integer to determine next page
-paginate: integer to determine limit of data per view page.
+search: any type to search information
 ````
  
 ## Build as a package

@@ -138,8 +138,8 @@ export class TableSearcherService {
    * @returns {boolean}
    */
   private processValidation(value: string, toFind: string, keys?: Array<string>): boolean {
-    value = String(value.toLowerCase());
-    toFind = String(toFind.toLowerCase());
+    value = String(value.toLowerCase().trim());
+    toFind = String(toFind.toLowerCase().trim());
     // console.log('toFind=', toFind, 'Value=', value, keys.toString(), (keys[0] === keys[1] && value.indexOf(toFind) > -1));
     return (keys) ? (keys[0] === keys[1] && value.indexOf(toFind) > -1) : (value.indexOf(toFind) > -1);
   }

@@ -16,12 +16,26 @@ import 'rxjs/add/observable/throw';
   styleUrls: ['./table-searcher.component.css'],
 })
 export class TableSearcherComponent implements OnInit {
+
+  private static defaultAllSettings: AllSettings<Object> = {
+    path: null,
+    placeholder: 'What are you looking for?',
+    data: [],
+    searchKeys: [],
+    from: null,
+    queryField: 'search',
+    borderColor: '#eee000',
+    buttonColor: '#83e6bc',
+    searchType: TableSearcherTypesEnum.EMPTY_TABLE_APPLY_BACKEND
+  };
+
   @Input() allSettings: AllSettings<Object> = {
     path: null,
     placeholder: 'What are you looking for?',
     data: [],
     searchKeys: [],
     from: null,
+    queryField: 'search',
     borderColor: '#eee000',
     buttonColor: '#83e6bc',
     searchType: TableSearcherTypesEnum.EMPTY_TABLE_APPLY_BACKEND
@@ -29,6 +43,7 @@ export class TableSearcherComponent implements OnInit {
 
   public searching = false;
   private copyData = [];
+
 
   constructor(private tableSearcherService: TableSearcherService,
               private eventsService: EventsService) {
@@ -65,7 +80,7 @@ export class TableSearcherComponent implements OnInit {
           this.processSearching(TableSearcherTypesEnum.EMPTY_TABLE_APPLY_BACKEND, query);
           break;
         case TableSearcherTypesEnum.ON_BACKEND:
-          this.doSearchBackend();
+          this.doSearchBackend(query);
           break;
         case TableSearcherTypesEnum.ON_TABLE:
           this.processSearching(TableSearcherTypesEnum.ON_TABLE, query);
@@ -88,7 +103,7 @@ export class TableSearcherComponent implements OnInit {
         (result) => {
           console.log('saerchResult=', result);
           if (result.length === 0 && type === TableSearcherTypesEnum.EMPTY_TABLE_APPLY_BACKEND) {
-            this.doSearchBackend();
+            this.doSearchBackend(query);
             return;
           }
           this.eventsService.broadcast(this.allSettings.from, {result: result, data: this.copyData});
@@ -104,8 +119,11 @@ export class TableSearcherComponent implements OnInit {
 
   /**
    * This is used to make a request to a backend api for searching.
+   * @param query
    */
-  doSearchBackend() {
+  private doSearchBackend(query) {
+    const pos = this.allSettings.path.indexOf('?');
+    this.allSettings.path = (pos > -1) ? this.allSettings.path + `&${this.allSettings.queryField}=${query}` : this.allSettings.path + `?${this.allSettings.queryField}=${query}`;
     this.tableSearcherService.searchResource(this.allSettings.path)
       .map((res) => res.json())
       .subscribe(
@@ -120,7 +138,20 @@ export class TableSearcherComponent implements OnInit {
       );
   }
 
+  /**
+   * This is used to validate object passed down to table searcher.
+   * @constructor
+   */
+  ValidateSettings() {
+    for (const key in this.allSettings) {
+      if (!this.allSettings[key]) {
+        this.allSettings[key] = TableSearcherComponent.defaultAllSettings[key];
+      }
+    }
+  }
+
   ngOnInit() {
+    this.ValidateSettings();
     this.copyData = JSON.parse(JSON.stringify(this.allSettings.data));
   }
 
@@ -134,6 +165,7 @@ interface AllSettings<T> {
   from: string;
   borderColor: string;
   buttonColor: string;
+  queryField: string;
   searchType: TableSearcherTypesEnum;
 }
 
