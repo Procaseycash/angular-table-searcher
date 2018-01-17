@@ -76,7 +76,7 @@ export class AppComponent implements OnInit {
   title = 'app';
    public tableSearcher: TableSearcherInterface<Object> = {
      path: 'http://localhost:8088/api/organizations',
-     searchType: TableSearcherTypesEnum.ON_BACKEND,
+     searchType: TableSearcherTypesEnum.EMPTY_TABLE_APPLY_BACKEND,
      searchKeys: [],
      borderColor: '',
      buttonColor: '',
