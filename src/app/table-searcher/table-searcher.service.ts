@@ -18,7 +18,7 @@ export class TableSearcherService {
    * @param {Array<string>} keys
    * @returns {Array<Object>}
    */
-  public initSearch(values: Array<Object>, toFind: string = '', keys?: Array<string>): Observable<Array<Object>> {
+  public initSearch(values: Array<Object>, toFind: string = '', keys?: Array<string>): Observable<any> {
     this.searched = [];
     if (keys && keys.length > 0) {
       keys.forEach((key) => {
