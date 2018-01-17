@@ -93,7 +93,7 @@ export class AppComponent implements OnInit {
       // the result can be of array or object.
       // if result is an array, that is the final result
       // but if result is object, it denotes a backend response, so you can drill down to pick the searched result depending on your api response.
-      console.log('response=', res);
+      // console.log('response=', res);
       this.tableSearcher.data = (res['result'].constructor === Array) ? res['result'] : res['result'].data['data']; // update table data in view
     });
   }

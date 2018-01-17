@@ -27,7 +27,7 @@ export class TableSearcherService {
     } else {
       this.startSearching(values, toFind);
     }
-    console.log('searched=', this.searched);
+    // console.log('searched=', this.searched);
     const result = new ReplaySubject();
     result.next(this.searched);
     return Observable.from(result);
@@ -41,16 +41,16 @@ export class TableSearcherService {
    * @param {string} key
    */
   private startSearching(values: Array<Object>, toFind: string, key?: string) {
-    console.log('values=', values);
+    // console.log('values=', values);
     values.filter((value) => {
       const status = (key) ? this.processObject(value, toFind, key) : this.processObject(value, toFind);
       if (status && this.searched.indexOf(value) === -1) {
           this.searched.push(value);
-        console.log('Finalsaerched=', status, this.searched);
+        // console.log('Finalsaerched=', status, this.searched);
       }
       return status;
     });
-    console.log('ReturnFinalsaerched=', this.searched);
+    // console.log('ReturnFinalsaerched=', this.searched);
   }
 
   /**
@@ -64,7 +64,7 @@ export class TableSearcherService {
     let status = null;
     for (const valKey in values) {
       if (status) {
-        console.log('this is true');
+        // console.log('this is true');
         break;
       } else {
         const value = values[valKey];
@@ -72,11 +72,11 @@ export class TableSearcherService {
           continue;
         }
 
-        console.log('key=', valKey, value);
+        // console.log('key=', valKey, value);
         switch (value.constructor) {
           case Array:
             status = (key) ? this.processArray(value, toFind, [key, valKey]) : this.processArray(value, toFind);
-            console.log('status1=', status);
+            // console.log('status1=', status);
             break;
           case Object:
             const innerKeys = Object.keys(value);
@@ -85,11 +85,11 @@ export class TableSearcherService {
               continue ;
             }
             status = (key) ? this.processObject(value, toFind, key) : this.processObject(value, toFind);
-            console.log('status2=', status);
+            // console.log('status2=', status);
             break;
           case String:
             status = (key) ? this.processValidation(value, toFind, [key, valKey]) : this.processValidation(value, toFind);
-            console.log('status=', status);
+            // console.log('status=', status);
             break;
           default:
             status = false;

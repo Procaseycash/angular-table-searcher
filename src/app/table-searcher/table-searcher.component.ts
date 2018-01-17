@@ -103,14 +103,14 @@ export class TableSearcherComponent implements OnInit {
     this.tableSearcherService.initSearch(this.allSettings.data, query, this.allSettings.searchKeys)
       .subscribe(
         (result) => {
-          console.log('saerchResult=', result);
+          // console.log('saerchResult=', result);
           if (result.length === 0 && type === TableSearcherTypesEnum.EMPTY_TABLE_APPLY_BACKEND) {
             this.doSearchBackend(query);
             return;
           }
           this.eventsService.broadcast(this.allSettings.from, {result: result, data: this.copyData});
           this.searching = false;
-          console.log('searching=', this.searching);
+          // console.log('searching=', this.searching);
         },
         (err) => {
           this.searching = false;
