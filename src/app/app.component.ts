@@ -12,10 +12,11 @@ export class AppComponent implements OnInit {
   title = 'app';
   public tableSearcher = {
     path: 'http://localhost:8088/api/organizations',
-    searchType: TableSearcherTypesEnum.ON_TABLE,
+    searchType: TableSearcherTypesEnum.ON_BACKEND,
     searchKeys: [],
     borderColor: '',
     buttonColor: '',
+    queryField: 'search',
     data: null,
     placeholder: 'Filter information...',
     from: 'search_organizations'
