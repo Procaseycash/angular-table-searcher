@@ -3,6 +3,7 @@ import {EventsService} from "./table-searcher/event.service";
 import {Http} from "@angular/http";
 import 'rxjs/add/operator/map';
 import {TableSearcherTypesEnum} from "./table-searcher/table-seacher-types.enum";
+import {TableSearcherInterface} from "./table-searcher/table-searcher.interface";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,7 +11,7 @@ import {TableSearcherTypesEnum} from "./table-searcher/table-seacher-types.enum"
 })
 export class AppComponent implements OnInit {
   title = 'app';
-  public tableSearcher = {
+  public tableSearcher: TableSearcherInterface<Object> = {
     path: 'http://localhost:8088/api/organizations',
     searchType: TableSearcherTypesEnum.ON_BACKEND,
     searchKeys: [],

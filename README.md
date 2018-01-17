@@ -66,6 +66,7 @@ import {Component, OnInit} from '@angular/core';
 import {Http} from "@angular/http";
 import 'rxjs/add/operator/map';
 import {EventsService, TableSearcherTypesEnum} from "angular-table-searcher";
+import {TableSearcherInterface} from "./table-searcher/table-searcher.interface";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -73,17 +74,17 @@ import {EventsService, TableSearcherTypesEnum} from "angular-table-searcher";
 })
 export class AppComponent implements OnInit {
   title = 'app';
-  public tableSearcher = {
-    path: 'http://localhost:8088/api/organizations',
-    searchType: TableSearcherTypesEnum.ON_TABLE,
-    searchKeys: [],
-    borderColor: '',
-    buttonColor: '',
-    data: null,
-    placeholder: 'Filter information...',
-    queryField: 'search',
-    from: 'search_organizations'
-  };
+   public tableSearcher: TableSearcherInterface<Object> = {
+     path: 'http://localhost:8088/api/organizations',
+     searchType: TableSearcherTypesEnum.ON_BACKEND,
+     searchKeys: [],
+     borderColor: '',
+     buttonColor: '',
+     queryField: 'search',
+     data: null,
+     placeholder: 'Filter information...',
+     from: 'search_organizations'
+   };
 
   constructor(private eventsService: EventsService, private http: Http) {
     this.eventsService.on(this.tableSearcher.from, (res) => {
