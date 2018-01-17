@@ -3,11 +3,11 @@ import {CommonModule} from '@angular/common';
 import {EventsService} from './event.service';
 import {TableSearcherComponent} from './table-searcher.component';
 import {TableSearcherService} from './table-searcher.service';
-import {HttpModule} from '@angular/http';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   imports: [
-    HttpModule,
+    HttpClientModule,
     CommonModule
   ],
   declarations: [TableSearcherComponent],

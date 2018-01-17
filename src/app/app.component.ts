@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {EventsService} from "./table-searcher/event.service";
-import {Http} from "@angular/http";
 import 'rxjs/add/operator/map';
 import {TableSearcherTypesEnum} from "./table-searcher/table-seacher-types.enum";
 import {TableSearcherInterface} from "./table-searcher/table-searcher.interface";
+import {HttpClient} from "@angular/common/http";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
     from: 'search_organizations'
   };
 
-  constructor(private eventsService: EventsService, private http: Http) {
+  constructor(private eventsService: EventsService, private http: HttpClient) {
     this.eventsService.on(this.tableSearcher.from, (res) => {
       // Note that table will response from table searcher will respond with result and data,
       // the result is the searched item while data is the previous data passed down to it.
@@ -35,8 +35,7 @@ export class AppComponent implements OnInit {
     });
   }
   private getOrganizations() {
-    this.http.get(this.tableSearcher.path)
-      .map( res => res.json()).subscribe(
+    this.http.get(this.tableSearcher.path).subscribe(
       (res) => {
         this.tableSearcher.data = res['data']['data'];
       },

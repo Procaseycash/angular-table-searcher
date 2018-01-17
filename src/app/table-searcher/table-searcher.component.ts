@@ -127,7 +127,6 @@ export class TableSearcherComponent implements OnInit {
     const pos = this.allSettings.path.indexOf('?');
     this.allSettings.path = (pos > -1) ? this.allSettings.path + `&${this.allSettings.queryField}=${query}` : this.allSettings.path + `?${this.allSettings.queryField}=${query}`;
     this.tableSearcherService.searchResource(this.allSettings.path)
-      .map((res) => res.json())
       .subscribe(
         (res) => {
           this.eventsService.broadcast(this.allSettings.from, {result: res, data: this.copyData});

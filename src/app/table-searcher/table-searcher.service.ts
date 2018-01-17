@@ -1,14 +1,14 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {Http} from '@angular/http';
 import {ReplaySubject} from "rxjs/ReplaySubject";
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/observable/from';
+import {HttpClient} from "@angular/common/http";
 @Injectable()
 export class TableSearcherService {
   private searched: Array<Object> = [];
 
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
   }
 
   /**
@@ -18,7 +18,7 @@ export class TableSearcherService {
    * @param {Array<string>} keys
    * @returns {Array<Object>}
    */
-  public initSearch(values: Array<Object>, toFind: string = '', keys?: Array<string>): Observable<Array<Object>> {
+  public initSearch(values: Array<Object>, toFind: string = '', keys?: Array<string>): Observable<any> {
     this.searched = [];
     if (keys && keys.length > 0) {
       keys.forEach((key) => {

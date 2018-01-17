@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import {AngularTableSearcherModule} from './table-searcher/angular-table-searcher.module';
-import {HttpModule} from "@angular/http";
+import {HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -11,7 +11,7 @@ import {HttpModule} from "@angular/http";
   ],
   imports: [
     BrowserModule,
-    HttpModule,
+    HttpClientModule,
     AngularTableSearcherModule.forRoot()
   ],
   providers: [],
