@@ -133,7 +133,7 @@ export class AppComponent implements OnInit {
 Your backend will expect 
 
 ````
-search: any type to search information
+queryField: any type to search information
 ````
  
 ## Build as a package
