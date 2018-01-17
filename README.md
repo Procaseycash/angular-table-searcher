@@ -47,8 +47,11 @@ Add `AngularTableSearcherModule.forRoot()` in AppModule or Other Modules using `
    ## *.component.ts
    
    Add/refactor the following code to the appropriate places in your component.ts
-
-  
+   
+   
+  ## searching
+      Searching can either be done with enter or button click after value has been supplied.
+      
 ````
 import {Component, OnInit} from '@angular/core';
 import {Http} from "@angular/http";
