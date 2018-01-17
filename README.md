@@ -1,4 +1,4 @@
-# AngularTableSearcher (Angular ^4...)
+# AngularTableSearcher (Angular ^5...)
 
 This is an angular table searcher. it helps to use keys provided to search through a list of objects and if no keys are provided, it searches for the occurrence of the input value. it also makes request to endpoint if url is provided for backend search.     
 
