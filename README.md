@@ -33,7 +33,7 @@ Add `AngularTableSearcherModule.forRoot()` in AppModule or Other Modules using `
   path: full path of the api url to call for search option.
   from: the key the eventService will use in mapping when data has responded from angular-table-seacher. (from key must be unique to every component using searcher)
   data: (paginated response), this must be the first data rendered from the component which information are picked to enable searching.
-  searchKeys: Keys to tell the AngularTableSearcher to use to filter data.
+  searchKeys: Keys to tell the AngularTableSearcher to use to filter data but can be empty array to search all through object and its child.
   searchType: We have three search types which can be from backend, table, table not found with backend.
   placeholder: What to display in the input field as a message
   buttonColor: The background color of the table seacher.
@@ -77,7 +77,7 @@ export class AppComponent implements OnInit {
    public tableSearcher: TableSearcherInterface<Object> = {
      path: 'http://localhost:8088/api/organizations',
      searchType: TableSearcherTypesEnum.EMPTY_TABLE_APPLY_BACKEND,
-     searchKeys: [],
+     searchKeys: ['name', 'email'], // can be empty array to enable deep searching
      borderColor: '',
      buttonColor: '',
      queryField: 'search',

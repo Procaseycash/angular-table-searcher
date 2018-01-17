@@ -68,7 +68,7 @@ export class TableSearcherService {
         break;
       } else {
         const value = values[valKey];
-        if (!value) {
+        if (!value || (key && key !== valKey)) {
           continue;
         }
 
@@ -109,7 +109,7 @@ export class TableSearcherService {
    */
   private processArray(values: Array<any>, toFind: string, keys?: Array<string>) {
     values.filter((value) => {
-      if (!value) {
+      if (!value || (keys && keys[0] !== keys[1])) {
         return false;
       }
       switch (value.constructor) {
