@@ -1,9 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-
 import { AppComponent } from './app.component';
-import {AngularTableSearcherModule} from './paginator/angular-table-searcher.module';
+import {AngularTableSearcherModule} from './table-searcher/angular-table-searcher.module';
 import {HttpModule} from "@angular/http";
 
 

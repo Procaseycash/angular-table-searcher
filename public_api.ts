@@ -1,3 +1,4 @@
-export {LarangPaginatorModule} from './src/app/paginator/angular-table-searcher.module';
-export {EventsService} from './src/app/paginator/event.service';
-export {PaginatorService} from './src/app/paginator/table-searcher.service';
+export {EventsService} from './src/app/table-searcher/event.service';
+export {TableSearcherService} from './src/app/table-searcher/table-searcher.service';
+export {TableSearcherTypesEnum} from './src/app/table-searcher/table-seacher-types.enum';
+export {AngularTableSearcherModule} from './src/app/table-searcher/angular-table-searcher.module';

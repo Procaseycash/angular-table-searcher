@@ -1,82 +1,8 @@
-<div *ngIf="dataStorage.length > 0" style="background: #fff; padding:5px; z-index: 0" class="">
-<!--  <h4>   <button (click)="endSearch()" class="btn btn-info btn-sm pull-right">
-    <i class="fa fa-window-restore"></i> Show All</button></h4>-->
-  <!--<app-notification></app-notification>-->
-  <div align="center" *ngIf="booleanVar.react">
-    <i class="fa fa-spin fa-spinner"></i> <br>
-    {{booleanVar.message}} <br>
-  </div>
-  <div class="clearfix"></div>
-  <form class="formSearch" (ngSubmit)="localSearch('bySearch');">
-    <div class="row" style="margin: 0!important;padding: 0!important;">
-      <div class="clearfix"></div>
-      <div *ngIf="enabled.indexOf('SEARCH') > -1" class="{{classSelection.search}}">
-      <!--  Search:-->
-        <div class="input-group">
-          <input (keyup.enter)="localSearch('bySearch')" (change)="onInputchange('bySearch')" id="bySearch" type="text" class="form-control" placeholder="Search">
-        </div>
-      </div>
-<!--
-
-      <div  *ngIf="enabled.indexOf('DATE') > -1"  class="{{classSelection.date}}">
-        Date Range:
-        <div class="input-group">
-          <input  (change)="onInputchange('byDateRange')" id="byDateRange" type="text" class="form-control" name="daterange" value="">
-        </div>
-      </div>
--->
-
-      <div  *ngIf="enabled.indexOf('DATE') > -1"  class="{{classSelection.date}}">
-      <!--  <br>-->
-        <div class="input-group">
-          <input  id="byDateRange_"  class="form-control" placeholder="Date From"
-                 name="dp" (click)="d.toggle();$event.stopPropagation();"  (document:click)="ngbClosure($event, d)"  [(ngModel)]="date.from" ngbDatepicker #d="ngbDatepicker">
-        </div>
-      </div>
-      <div  *ngIf="enabled.indexOf('DATE') > -1"  class="{{classSelection.date}}">
-        <!--<br>-->
-        <div class="input-group">
-          <input  id="byDateRange" class="form-control" placeholder="Date To"
-                 name="dp" (click)="t.toggle();$event.stopPropagation();"  (document:click)="ngbClosure($event, t)"  [(ngModel)]="date.to" ngbDatepicker #t="ngbDatepicker">
-        </div>
-      </div>
-
-      <div   *ngIf="enabled.indexOf('CURRENCY') > -1"  class="{{classSelection.currency}}">
-        <!--Currency:-->
-        <div class="input-group">
-          <select  (change)="onInputchange('byCurrency')" id="byCurrency" type="text" name="status" class="form-control">
-            <option  value="">Currency</option>
-            <option *ngFor="let cur of currencies" value="{{cur?.code}}"  [innerHTML]="cur['html']+';'"></option>
-          </select>
-        </div>
-      </div>
-      <div   *ngIf="enabled.indexOf('STATUS') > -1"  class="{{classSelection.status}}">
-       <!-- Status:-->
-        <div class="input-group">
-          <select  (change)="onInputchange('byStatus')" id="byStatus" type="text" name="status" class="form-control">
-            <option  value="">Status</option>
-            <option value=" ">All</option>
-            <option value="0">Paid</option>
-            <option value="1">Pending</option>
-            <option value="2">Failed</option>
-            <option value="3">Reversed</option>
-          </select>
-        </div>
-      </div>
-      <div class="col-lg-2">
-       <!-- <br>-->
-        <div class="input-group">
-        <button (keyup.enter)="localSearch('bySearch')" class="btn btn-primary" type="submit">Search</button>
-        </div>
-      </div>
-      <div class="col-lg-2">
-       <!-- <br>-->
-        <div class="input-group">
-          <button (click)="endSearch()" class="btn btn-info">
-            <i class="fa fa-window-restore"></i> Show All</button>
-        </div>
-      </div>
-    </div>
-  </form>
-  <br>
+<div class="table-searcher" [ngStyle]="setBorderColor()" [class.disabled]="searching">
+  <input [disabled]="searching" (keyup.enter)="doSearch(searchItem.value)" #searchItem  type="text"  placeholder="{{placeholder}}">
+  <!--<i *ngIf="searching" class="fa fa-spin fa-spinner"></i>-->
+  <button  [disabled]="searching" type="button" (click)="doSearch(searchItem.value)" class="button" [ngStyle]="setButtonColor()">
+    <i *ngIf="searching" class="fa fa-spin fa-spinner"></i> <i class="fa fa-search"></i>
+  </button>
 </div>
+<span class="clearOut"></span>
