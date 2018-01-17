@@ -60,6 +60,7 @@ Add `AngularTableSearcherModule.forRoot()` in AppModule or Other Modules using `
   data: Array // data passed down to table-searcher.
   }
   ````    
+  
 ````
 import {Component, OnInit} from '@angular/core';
 import {Http} from "@angular/http";
