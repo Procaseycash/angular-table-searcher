@@ -125,8 +125,8 @@ export class TableSearcherComponent implements OnInit {
    */
   private doSearchBackend(query) {
     const pos = this.allSettings.path.indexOf('?');
-    this.allSettings.path = (pos > -1) ? this.allSettings.path + `&${this.allSettings.queryField}=${query}` : this.allSettings.path + `?${this.allSettings.queryField}=${query}`;
-    this.tableSearcherService.searchResource(this.allSettings.path)
+    const path = (pos > -1) ? this.allSettings.path + `&${this.allSettings.queryField}=${query}` : this.allSettings.path + `?${this.allSettings.queryField}=${query}`;
+    this.tableSearcherService.searchResource(path)
       .subscribe(
         (res) => {
           this.eventsService.broadcast(this.allSettings.from, {result: res, data: this.copyData});
