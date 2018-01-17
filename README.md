@@ -51,7 +51,15 @@ Add `AngularTableSearcherModule.forRoot()` in AppModule or Other Modules using `
    
   ## searching
       Searching can either be done with enter or button click after value has been supplied.
-      
+ 
+  ## Response
+  The response from angular-table-searcher is an object of type:
+  ````
+  {
+  result: Object | Array,
+  data: Array // data passed down to table-searcher.
+  }
+  ````    
 ````
 import {Component, OnInit} from '@angular/core';
 import {Http} from "@angular/http";
