@@ -14,9 +14,9 @@ export class AppComponent implements OnInit {
   public tableSearcher: TableSearcherInterface<Object> = {
     path: 'http://localhost:8088/api/organizations',
     searchType: TableSearcherTypesEnum.EMPTY_TABLE_APPLY_BACKEND,
-    searchKeys: ['name', 'email'], // can be empty array to enable deep searching
-    borderColor: '',
-    buttonColor: '',
+    searchKeys: ['id', 'name', 'email'], // can be empty array to enable deep searching
+    borderColor: 'red',
+    buttonColor: 'black',
     queryField: 'search',
     data: null,
     placeholder: 'Filter information...',

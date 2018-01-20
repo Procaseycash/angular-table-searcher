@@ -24,11 +24,13 @@
     <tr>
       <td>#</td>
       <td>Name</td>
+      <td>Email</td>
     </tr>
 
     <tr *ngFor="let page of tableSearcher.data; let i = index;">
       <td>{{(i + 1)}}</td>
       <td>{{page?.name}}</td>
+      <td>{{page?.email}}</td>
     </tr>
 
   </table>
