@@ -20,7 +20,7 @@ export class TableSearcherService {
    */
   public initSearch(values: Array<Object>, toFind: string = '', keys?: Array<string>): Observable<any> {
     this.searched = [];
-    console.log('keys= ', keys);
+   // console.log('keys= ', keys);
     if (keys && keys.length > 0) {
       keys.forEach((key) => {
        // console.log('key=', key);
