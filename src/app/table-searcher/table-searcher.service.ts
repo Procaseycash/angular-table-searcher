@@ -20,9 +20,11 @@ export class TableSearcherService {
    */
   public initSearch(values: Array<Object>, toFind: string = '', keys?: Array<string>): Observable<any> {
     this.searched = [];
+    console.log('keys= ', keys);
     if (keys && keys.length > 0) {
       keys.forEach((key) => {
-          this.startSearching(values, toFind, key);
+       // console.log('key=', key);
+        this.startSearching(values, toFind, key);
       });
     } else {
       this.startSearching(values, toFind);
@@ -45,7 +47,7 @@ export class TableSearcherService {
     values.filter((value) => {
       const status = (key) ? this.processObject(value, toFind, key) : this.processObject(value, toFind);
       if (status && this.searched.indexOf(value) === -1) {
-          this.searched.push(value);
+        this.searched.push(value);
         // console.log('Finalsaerched=', status, this.searched);
       }
       return status;
@@ -68,6 +70,7 @@ export class TableSearcherService {
         break;
       } else {
         const value = values[valKey];
+      //  console.log('value=', values[valKey], 'KeyVal=', valKey, 'key=', key);
         if (!value || (key && key !== valKey)) {
           status = false;
           continue;
@@ -92,6 +95,10 @@ export class TableSearcherService {
             status = (key) ? this.processValidation(value, toFind, [key, valKey]) : this.processValidation(value, toFind);
             // console.log('status=', status);
             break;
+          case Number:
+            status = (key) ? this.processValidation(value, toFind, [key, valKey]) : this.processValidation(value, toFind);
+            // console.log('status=', status);
+            break;
           default:
             status = false;
             break;
@@ -99,6 +106,7 @@ export class TableSearcherService {
       }
     }
     return !!(status);
+
   }
 
   /**
@@ -124,6 +132,8 @@ export class TableSearcherService {
           return (keys[0]) ? this.processObject(value, toFind, keys[0]) : this.processObject(value, toFind);
         case String:
           return (keys[0]) ? this.processValidation(value, toFind, keys) : this.processValidation(value, toFind);
+        case Number:
+          return (keys[0]) ? this.processValidation(value, toFind, keys) : this.processValidation(value, toFind);
         default:
           return false;
       }
@@ -139,9 +149,9 @@ export class TableSearcherService {
    * @returns {boolean}
    */
   private processValidation(value: string, toFind: string, keys?: Array<string>): boolean {
-    value = String(value.toLowerCase().trim());
-    toFind = String(toFind.toLowerCase().trim());
-    // console.log('toFind=', toFind, 'Value=', value, keys.toString(), (keys[0] === keys[1] && value.indexOf(toFind) > -1));
+    value = String(value).toLowerCase().trim();
+    toFind = String(toFind).toLowerCase().trim();
+   // console.log('toFind=', toFind, 'Value=', value, keys.toString(), (keys[0] === keys[1] && value.indexOf(toFind) > -1));
     return (keys) ? (keys[0] === keys[1] && value.indexOf(toFind) > -1) : (value.indexOf(toFind) > -1);
   }
 
