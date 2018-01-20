@@ -69,6 +69,7 @@ export class TableSearcherService {
       } else {
         const value = values[valKey];
         if (!value || (key && key !== valKey)) {
+          status = false;
           continue;
         }
 
